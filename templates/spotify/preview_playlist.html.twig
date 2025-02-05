@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prévisualisation de la Playlist{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/preview_playlist.css') }}"> 
+{% endblock %}
+
+{% block body %}
+<div class="playlist-preview-container">
+    <h1>Prévisualisation de la Playlist</h1>
+    <h2>{{ playlistName }}</h2>
+    <p><strong>Thème :</strong> {{ playlistTheme }} (Mode : {{ searchMode }})</p>
+
+    <table class="track-list">
+        <thead>
+            <tr>
+                <th>Couverture</th>
+                <th>Titre</th>
+                <th>Artiste</th>
+                <th>Album</th>
+                <th>Écoute</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for track in tracks %}
+                <tr>
+                    <td>
+                        {% if track.cover %}
+                            <img src="{{ track.cover }}" alt="Cover" width="50">
+                        {% endif %}
+                    </td>
+                    <td>{{ track.name }}</td>
+                    <td>{{ track.artist }}</td>
+                    <td>{{ track.album }}</td>
+                    <td>
+                        <iframe 
+                            src="https://open.spotify.com/embed/track/{{ track.id }}" 
+                            width="300" 
+                            height="80" 
+                            frameborder="0" 
+                            allowtransparency="true" 
+                            allow="encrypted-media">
+                        </iframe>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="{{ path('create_playlist') }}" method="post">
+        <input type="hidden" name="playlist_name" value="{{ playlistName }}">
+        <input type="hidden" name="playlist_theme" value="{{ playlistTheme }}">
+        <input type="hidden" name="search_mode" value="{{ searchMode }}">
+        <input type="hidden" name="track_limit" value="{{ trackLimit }}">
+        <button type="submit" class="btn">Créer la Playlist</button>
+    </form>
+</div>
+{% endblock %}

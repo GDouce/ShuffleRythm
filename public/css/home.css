@@ -1,0 +1,77 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(-45deg, #4b0082, #2c003e, #6a0dad, #9d4edd);
+    background-size: 300% 300%;
+    animation: gradientAnimation 12s ease infinite;
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* 🌟 Section de bienvenue */
+.welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+/* 🌟 Conteneur du message */
+.welcome-message {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* ✨ Animation d'apparition */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* 🎶 Titre principal */
+.welcome h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #ff00ff, #ff69b4, #9d4edd);
+}
+
+/* 🎵 Texte de description */
+.welcome p {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+/* 🎼 Slogan */
+.slogan h2 {
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 500;
+    color: #ff69b4;
+    text-shadow: 0px 0px 10px rgba(255, 105, 180, 0.8);
+}
+
+/* 📱 Responsive */
+@media screen and (max-width: 768px) {
+    .welcome-message {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .welcome h1 {
+        font-size: 32px;
+    }
+
+    .slogan h2 {
+        font-size: 20px;
+    }
+}

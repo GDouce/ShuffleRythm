@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SpotifyController!{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }} 
+    <link rel="stylesheet" href="{{ asset('css/create_form.css') }}"> 
+{% endblock %}
+
+{% block body %}
+<div class="playlist-container">
+    <h1>Créer une Playlist</h1>
+
+    <form action="{{ path('preview_playlist') }}" method="post">
+        <label for="playlist_name">Nom de la Playlist :</label>
+        <input 
+            type="text" 
+            id="playlist_name" 
+            name="playlist_name" 
+            placeholder="Exemple : Ma super Playlist" 
+            required
+        >
+
+        <label for="search_mode">Rechercher par :</label>
+        <select name="search_mode" id="search_mode" required>
+            <option value="artist">Artiste (par défaut)</option>
+            <option value="genre">Genre</option>
+        </select>
+
+        <label for="track_limit"> Nombre de musiques dans la Playlist ? </label>
+        <input  
+            type="number"
+            id="track_limit"
+            name="track_limit"
+            min="1"
+            max="50"
+            value="10"
+            required
+        >
+
+        <label for="playlist_theme">Votre saisie :</label>
+        <input 
+            type="text" 
+            id="playlist_theme" 
+            name="playlist_theme" 
+            placeholder="Ex : Coldplay, ou Jazz, etc." 
+            required
+        >
+
+        <button type="submit" class="btn">Créer la Playlist</button>
+    </form>
+</div>
+{% endblock %}

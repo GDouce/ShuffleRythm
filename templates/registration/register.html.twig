@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shuffle Rythm{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }} <!-- Garde les styles globaux -->
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}"> <!-- CSS spécifique -->
+{% endblock %}
+
+{% block body %}
+<div class="register-container">
+    <h1>Créer un Compte</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.Username) }}
+        {{ form_row(registrationForm.plainPassword, { label: 'Mot de passe' }) }}
+
+        <button type="submit" class="btn">S'inscrire</button>
+    {{ form_end(registrationForm) }}
+</div>
+{% endblock %}

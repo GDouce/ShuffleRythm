@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+        
+        <link rel="stylesheet" href="{{ asset('css/preview_playlist.css')}}">
+        {% block stylesheets %}{% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        
+        {% if app.user %}
+        <nav class="navbar">
+            <div class="navbar-container">
+                <a href="{{ path('app_home') }}" class="navbar-logo">
+                    <img src="{{ asset('images/favicon.png') }}" alt="Logo Shuffle Rythm" class="logo">
+                    <span>Shuffle Rythm</span>
+                </a>
+
+                <ul class="nav-menu">
+                    <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                    <li><a href="{{ path('create_playlist_form') }}">Créer une Playlist</a></li>
+                    <li><a href="{{ path('historique_playlists') }}">Historique</a></li>
+                </ul>
+
+                <div class="nav-auth">
+                    <a href="{{ path('app_logout') }}" class="btn">Déconnexion</a>
+                </div>
+
+                <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            </div>
+        </nav>
+        {% endif %}
+
+        
+        <main class="main-container">
+            {% block body %}{% endblock %}
+        </main>
+
+    </body>
+</html>

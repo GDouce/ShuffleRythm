@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historique des Playlists{% endblock %}
+
+{% block stylesheets %}
+    
+{% endblock %}
+
+{% block body %}
+<div class="playlist-history-container">
+    <h1>Historique des Playlists</h1>
+
+    {% if playlists is empty %}
+        <p>Aucune playlist enregistrée.</p>
+    {% else %}
+        <table class="track-list">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Date de création</th>
+                    <th>Écouter</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for playlist in playlists %}
+                    <tr>
+                        <td>{{ playlist.name }}</td>
+                        <td>{{ playlist.description }}</td>
+                        <td>{{ playlist.createdAt|date('d/m/Y H:i') }}</td>
+                        <td>
+                            <a href="https://open.spotify.com/playlist/{{ playlist.spotifyId }}" target="_blank" class="btn">
+                                🎵 Ouvrir sur Spotify
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

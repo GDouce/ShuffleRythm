@@ -1,0 +1,81 @@
+/* Conteneur principal */
+.login-container {
+    max-width: 400px;
+    margin: 100px auto; /* Centre le formulaire verticalement */
+    background: rgba(20, 20, 40, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* Titre */
+.login-container h1 {
+    color: #9d4edd;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Messages d'erreur */
+.alert-danger {
+    background-color: rgba(189, 0, 48, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+.login-container label {
+    display: block;
+    color: white;
+    text-align: left;
+    font-size: 14px;
+    margin: 10px 0 5px;
+}
+
+/* Champs de saisie */
+.login-container input {
+    width: 95%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+/* Effet focus */
+.login-container input:focus {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Bouton de connexion */
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    background: #9d4edd;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+/* Effet hover sur le bouton */
+.login-container button:hover {
+    background: #6a0dad;
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media screen and (max-width: 480px) {
+    .login-container {
+        width: 90%;
+    }
+}

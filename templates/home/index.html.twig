@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shuffle Rythm{% endblock %}
+
+{%block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <section class="welcome">
+        <div class="welcome-message">
+            <h1>Bienvenue sur Shuffle Rythm !</h1>
+            <p>Créez la playlist parfaite en quelques clics et laissez la musique vous guider.</p>
+            <div class="slogan">
+                <h2>"La musique, votre univers à chaque écoute."</h2>
+            </div>
+        </div>
+    </section>
+{% endblock %}
