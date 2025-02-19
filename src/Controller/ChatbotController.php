@@ -9,24 +9,25 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ChatbotController extends AbstractController
 {
-    #[Route('/chatbot', name: 'chatbot', methods: ['POST'])]
-    public function chatbot(Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-        $question = strtolower(trim($data['message'] ?? ''));
+    #[Route('/chatbot/ask', name: 'app_chatbot_ask', methods: ['POST'])]
+public function ask(Request $request): JsonResponse
+{
+    $message = $request->request->get('message');
 
-        // Liste des réponses fixes
-        $responses = [
-            'bonjour' => 'Bonjour ! Comment puis-je vous aider ?',
-            'Jai besoin daide' => 'En quoi puis-je vous aider ? (Je ne sais pas comment créer une playlist / Je suis perdu)',
-            'Je suis perdu' => 'Pas de soucis, je vais vous aider. ',
-            'Je ne sais pas comment créer une playlist' => 'Cest très simple, il suffit de se connecter à ton compte spotify depuis le bouton en haut à droite puis de te rendre sur la page Création e playlist',
-            'au revoir' => 'Au revoir ! Passez une bonne journée.'
-        ];
+    // Tableau des questions/réponses
+    $qa = [
+        'Bonjour' => 'Bonjour ! Comment puis-je vous aider ? (Je suis perdu / Je ne comprends pas comment créer une playlist)',
+        'Salut' => 'Bonjour ! Comment puis-je vous aider ? (Je suis perdu / Je ne comprends pas comment créer une playlist)',
+        'Je suis perdu' => 'Pas de panique. Vous pouvez créer une playlist depuis longlet Créer une playlist, mais pour se faire vous devez être connecté à Spotify via le bouton en haut à droite de la page. Cela à-t-il répondu à votre question ?',
+        'Je ne comprends pas comment créer une playlist' => 'Je comprends, je vais vous expliquer simplement. Il vous suffit de cliquer sur la page Créer une playlist et tout est inscrit sur la page de création de la playlist. Cela à-t-il répondu à votre question ?',
+        'Oui, merci' => 'Pas de soucis, je suis là pour ça !',
+        'Oui' => 'Pas de soucis, je suis là pour ça !',
+        'Oui merci' => 'Pas de soucis, je suis là pour ça !',
+    ];
 
-        // Trouver une réponse ou mettre un message par défaut
-        $response = $responses[$question] ?? "Désolé, je ne comprends pas cette question.";
+    // Réponse associée ou message par défaut
+    $answer = $qa[$message] ?? "Désolé, je n'ai pas compris votre question. Veuillez suivre les réponses prédéfinies";
 
-        return new JsonResponse(['response' => $response]);
-    }
+    return new JsonResponse(['answer' => $answer]);
+}
 }

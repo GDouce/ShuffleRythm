@@ -2,11 +2,75 @@
 
 {% block title %}Shuffle Rythm{% endblock %}
 
-{%block stylesheets %}
+{% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+    <style>
+        /* ----------------- Chatbot Styles ----------------- */
+        .chatbot-container {
+            max-width: 500px;
+            margin: 20px auto;
+            background: rgba(20, 20, 40, 0.95);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in-out;
+            color: white;
+        }
+        #chat-box {
+            height: 300px;
+            width: 90%;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+        }
+        #chat-input {
+            width: 90%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: background 0.3s ease;
+        }
+        #chat-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .message.user {
+            background-color: #9d4edd;
+            margin-left: auto;
+            text-align: right;
+            color: white;
+        }
+        .message.bot {
+            background-color: #6a0dad;
+            margin-right: auto;
+            text-align: left;
+            color: white;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 {% endblock %}
-
 
 {% block body %}
     <section class="welcome">
@@ -18,4 +82,49 @@
             </div>
         </div>
     </section>
+
+    <!-- Chatbot intégré -->
+    <div class="chatbot-container">
+        <div id="chat-box"></div>
+        <input type="text" id="chat-input" placeholder="Bonjour" autofocus>
+    </div>
+
+    <script>
+        const input = document.getElementById('chat-input');
+        const chatBox = document.getElementById('chat-box');
+
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && input.value.trim() !== '') {
+                const message = input.value.trim();
+                appendMessage('user', message);
+                sendMessage(message);
+                input.value = '';
+            }
+        });
+
+        function appendMessage(sender, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            messageDiv.textContent = message;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function sendMessage(message) {
+            fetch('{{ path("app_chatbot_ask") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'message=' + encodeURIComponent(message)
+            })
+            .then(response => response.json())
+            .then(data => {
+                appendMessage('bot', data.answer);
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+            });
+        }
+    </script>
 {% endblock %}

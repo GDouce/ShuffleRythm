@@ -28,10 +28,14 @@
                     <li><a href="{{ path('historique_playlists') }}">Historique</a></li>
                 </ul>
 
-                <div class="nav-auth">
-                    <a href="{{ path('connect_spotify') }}" class="btn">Se connecter à Spotify</a>
+            {% set spotifyToken = app.request.session.get('spotify_access_token') %}
+            <div class="nav-auth">
+                {% if spotifyToken is not empty %}
                     <a href="{{ path('app_logout') }}" class="btn">Déconnexion</a>
-                </div>
+                {% else %}
+                    <a href="{{ path('connect_spotify') }}" class="btn">Se connecter à Spotify</a>
+                {% endif %}
+            </div>
 
                 <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             </div>
