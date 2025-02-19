@@ -75,7 +75,7 @@ final class SpotifyController extends AbstractController
 
         
 
-        return new Response('Connecté');
+        return $this->redirectToRoute('app_home');
     }
 
     private function getUserSpotifyId(string $accessToken): ?string
